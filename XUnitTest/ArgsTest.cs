@@ -12,7 +12,7 @@ namespace Args
 	using Test = org.junit.Test;
 
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
-//	import static Args.ArgsException.ErrorCode.*;
+//	import static ErrorCode.*;
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
 //	import static org.junit.Assert.*;
 

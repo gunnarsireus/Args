@@ -80,27 +80,27 @@ namespace Args
 	  {
 		switch (errorCode)
 		{
-		  case OK:
+		  case ErrorCode.OK:
 			return "TILT: Should not get here.";
-		  case Args.ArgsException.ErrorCode.UNEXPECTED_ARGUMENT:
+		  case ErrorCode.UNEXPECTED_ARGUMENT:
 			return string.Format("Argument -{0} unexpected.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.MISSING_STRING:
+		  case ErrorCode.MISSING_STRING:
 			return string.Format("Could not find string parameter for -{0}.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.INVALID_INTEGER:
+		  case ErrorCode.INVALID_INTEGER:
 			return string.Format("Argument -{0} expects an integer but was '{1}'.", errorArgumentId, errorParameter);
-		  case Args.ArgsException.ErrorCode.MISSING_INTEGER:
+		  case ErrorCode.MISSING_INTEGER:
 			return string.Format("Could not find integer parameter for -{0}.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.INVALID_DOUBLE:
+		  case ErrorCode.INVALID_DOUBLE:
 			return string.Format("Argument -{0} expects a double but was '{1}'.", errorArgumentId, errorParameter);
-		  case Args.ArgsException.ErrorCode.MISSING_DOUBLE:
+		  case ErrorCode.MISSING_DOUBLE:
 			return string.Format("Could not find double parameter for -{0}.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.INVALID_ARGUMENT_NAME:
+		  case ErrorCode.INVALID_ARGUMENT_NAME:
 			return string.Format("'{0}' is not a valid argument name.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT:
+		  case ErrorCode.INVALID_ARGUMENT_FORMAT:
 			return string.Format("'{0}' is not a valid argument format.", errorParameter);
-		  case Args.ArgsException.ErrorCode.MISSING_MAP:
+		  case ErrorCode.MISSING_MAP:
 			return string.Format("Could not find map string for -{0}.", errorArgumentId);
-		  case Args.ArgsException.ErrorCode.MALFORMED_MAP:
+		  case ErrorCode.MALFORMED_MAP:
 			return string.Format("Map string for -{0} is not of form k1:v1,k2:v2...", errorArgumentId);
 		}
 		return "";

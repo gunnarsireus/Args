@@ -5,10 +5,12 @@
 //========================================================================
 
 using System.Collections.Generic;
+using static Args.ArgsException;
 
 namespace Args
 {
-	using static Args.ArgsException.ErrorCode;
+    using System.Linq;
+    using static ErrorCode;
 
 	public class StringArrayArgumentMarshaler : ArgumentMarshaler
 	{
@@ -21,7 +23,7 @@ namespace Args
 		try
 		{
 //JAVA TO C# CONVERTER TODO TASK: Java iterators are only converted within the context of 'while' and 'for' loops:
-		  strings.Add(currentArgument.next());
+		  strings.Add(currentArgument.Current);
 		}
 		catch (NoSuchElementException)
 		{

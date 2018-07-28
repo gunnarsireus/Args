@@ -9,7 +9,7 @@ namespace Args
 	using TestCase = junit.framework.TestCase;
 
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
-//	import static Args.ArgsException.ErrorCode.*;
+//	import static ErrorCode.*;
 
 	public class ArgsExceptionTest : TestCase
 	{

@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using static Args.ArgsException;
 
 namespace Args
 {
@@ -72,7 +73,7 @@ namespace Args
 		}
 		else
 		{
-		  throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+		  throw new ArgsException(ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
 		}
 	  }
 
@@ -82,7 +83,7 @@ namespace Args
 	  {
 		if (!char.IsLetter(elementId))
 		{
-		  throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
+		  throw new ArgsException(ErrorCode.INVALID_ARGUMENT_NAME, elementId, null);
 		}
 	  }
 
@@ -130,7 +131,7 @@ namespace Args
 		ArgumentMarshaler m = marshalers[argChar];
 		if (m == null)
 		{
-		  throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
+		  throw new ArgsException(ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
 		}
 		else
 		{
@@ -152,9 +153,9 @@ namespace Args
 		return argsFound.Contains(arg);
 	  }
 
-	  public virtual int nextArgument()
+	  public virtual string nextArgument()
 	  {
-		return currentArgument.nextIndex();
+		return currentArgument.Current;
 	  }
 
 	  public virtual bool getBoolean(char arg)

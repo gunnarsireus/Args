@@ -5,10 +5,11 @@
 //========================================================================
 
 using System.Collections.Generic;
+using static Args.ArgsException;
 
 namespace Args
 {
-	using static Args.ArgsException.ErrorCode;
+	using static ErrorCode;
 
 	public class DoubleArgumentMarshaler : ArgumentMarshaler
 	{
@@ -22,7 +23,7 @@ namespace Args
 		try
 		{
 //JAVA TO C# CONVERTER TODO TASK: Java iterators are only converted within the context of 'while' and 'for' loops:
-		  parameter = currentArgument.next();
+		  parameter = currentArgument.Current;
 		  doubleValue = double.Parse(parameter);
 		}
 		catch (NoSuchElementException)

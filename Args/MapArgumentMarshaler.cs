@@ -5,11 +5,12 @@
 //========================================================================
 
 using System.Collections.Generic;
+using static Args.ArgsException;
 
 namespace Args
 {
 
-	using static Args.ArgsException.ErrorCode;
+	using static ErrorCode;
 
 	public class MapArgumentMarshaler : ArgumentMarshaler
 	{
@@ -22,7 +23,7 @@ namespace Args
 		try
 		{
 //JAVA TO C# CONVERTER TODO TASK: Java iterators are only converted within the context of 'while' and 'for' loops:
-		  string[] mapEntries = currentArgument.next().Split(",");
+		  string[] mapEntries = currentArgument.Current.Split(",");
 		  foreach (string entry in mapEntries)
 		  {
 			string[] entryComponents = entry.Split(":", true);
@@ -47,7 +48,7 @@ namespace Args
 		}
 		else
 		{
-		  return new Dictionary<>();
+		  return new Dictionary<string, string>();
 		}
 	  }
 	}

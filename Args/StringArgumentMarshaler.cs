@@ -5,12 +5,13 @@
 //========================================================================
 
 using System.Collections.Generic;
+using static Args.ArgsException;
 
 namespace Args
 {
 
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
-//	import static Args.ArgsException.ErrorCode.MISSING_STRING;
+//	import static ErrorCode.MISSING_STRING;
 
 	public class StringArgumentMarshaler : ArgumentMarshaler
 	{
@@ -23,11 +24,11 @@ namespace Args
 		try
 		{
 //JAVA TO C# CONVERTER TODO TASK: Java iterators are only converted within the context of 'while' and 'for' loops:
-		  stringValue = currentArgument.next();
+		  stringValue = currentArgument.Current;
 		}
 		catch (NoSuchElementException)
 		{
-		  throw new ArgsException(MISSING_STRING);
+		  throw new ArgsException(ErrorCode.MISSING_STRING);
 		}
 	  }
 
