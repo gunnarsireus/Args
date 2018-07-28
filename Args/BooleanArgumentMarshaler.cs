@@ -6,10 +6,10 @@
 
 using System.Collections.Generic;
 
-namespace Args
+namespace com.cleancoder.args
 {
 
-	public class BooleanArgumentMarshaler : ArgumentMarshaler
+	public class BooleanArgumentMarshaler : IArgumentMarshaler
 	{
 	  private bool booleanValue = false;
 
@@ -20,7 +20,7 @@ namespace Args
 		booleanValue = true;
 	  }
 
-	  public static bool getValue(ArgumentMarshaler am)
+	  public static bool getValue(IArgumentMarshaler am)
 	  {
 		if (am != null && am is BooleanArgumentMarshaler)
 		{

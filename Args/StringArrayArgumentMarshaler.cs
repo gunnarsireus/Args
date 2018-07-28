@@ -5,14 +5,14 @@
 //========================================================================
 
 using System.Collections.Generic;
-using static Args.ArgsException;
 
-namespace Args
+namespace com.cleancoder.args
 {
+    using global::Args;
     using System.Linq;
-    using static ErrorCode;
+    using static com.cleancoder.args.ArgsException.ErrorCode;
 
-	public class StringArrayArgumentMarshaler : ArgumentMarshaler
+	public class StringArrayArgumentMarshaler : IArgumentMarshaler
 	{
 	  private IList<string> strings = new List<string>();
 
@@ -31,7 +31,7 @@ namespace Args
 		}
 	  }
 
-	  public static string[] getValue(ArgumentMarshaler am)
+	  public static string[] getValue(IArgumentMarshaler am)
 	  {
 		if (am != null && am is StringArrayArgumentMarshaler)
 		{

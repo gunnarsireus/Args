@@ -6,10 +6,12 @@
 using System;
 using Xunit;
 using System.Collections.Generic;
+using com.cleancoder.args;
+using static com.cleancoder.args.ArgsException;
 
 namespace Args
 {
-	using Test = org.junit.Test;
+	//using Test = org.junit.Test;
 
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
 //	import static ErrorCode.*;
@@ -19,13 +21,14 @@ namespace Args
 	public class ArgsTest
 	{
 
-//JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
-//ORIGINAL LINE: @Test public void testCreateWithNoSchemaOrArguments() throws Exception
-//JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
-	  public virtual void testCreateWithNoSchemaOrArguments()
+        //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
+        //ORIGINAL LINE: @Test public void testCreateWithNoSchemaOrArguments() throws Exception
+        //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
+        [Fact]
+        public virtual void testCreateWithNoSchemaOrArguments()
 	  {
-		Args args = new Args("", new string[0]);
-		assertEquals(0, args.nextArgument());
+        com.cleancoder.args.Args args = new com.cleancoder.args.Args("", new string[0]);
+		Assert.Equal(0, args.nextArgument());
 	  }
 
 
@@ -36,13 +39,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("", new string[]{"-x"});
-		  fail();
+		  new com.cleancoder.args.Args("", new string[]{"-x"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(UNEXPECTED_ARGUMENT, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.UNEXPECTED_ARGUMENT, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 	  }
 
@@ -53,13 +56,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("", new string[]{"-x", "-y"});
-		  fail();
+		  new com.cleancoder.args.Args("", new string[]{"-x", "-y"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(UNEXPECTED_ARGUMENT, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.UNEXPECTED_ARGUMENT, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 
 	  }
@@ -71,13 +74,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("*", new string[]{});
-		  fail("Args constructor should have thrown exception");
+		  new com.cleancoder.args.Args("*", new string[]{});
+		  //fail("Args constructor should have thrown exception");
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(INVALID_ARGUMENT_NAME, e.ErrorCode);
-		  assertEquals('*', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.INVALID_ARGUMENT_NAME, e.getErrorCode());
+		  Assert.Equal('*', e.ErrorArgumentId);
 		}
 	  }
 
@@ -88,13 +91,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("f~", new string[]{});
-		  fail("Args constructor should have throws exception");
+		  new com.cleancoder.args.Args("f~", new string[]{});
+		  //fail("Args constructor should have throws exception");
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(INVALID_ARGUMENT_FORMAT, e.ErrorCode);
-		  assertEquals('f', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.INVALID_ARGUMENT_FORMAT, e.getErrorCode());
+		  Assert.Equal('f', e.ErrorArgumentId);
 		}
 	  }
 
@@ -103,9 +106,9 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testSimpleBooleanPresent()
 	  {
-		Args args = new Args("x", new string[]{"-x"});
-		assertEquals(true, args.getBoolean('x'));
-		assertEquals(1, args.nextArgument());
+        var args = new com.cleancoder.args.Args("x", new string[]{"-x"});
+		Assert.True(args.getBoolean('x'));
+		Assert.Equal(1, args.nextArgument());
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -113,10 +116,10 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testSimpleStringPresent()
 	  {
-		Args args = new Args("x*", new string[]{"-x", "param"});
-		assertTrue(args.has('x'));
-		assertEquals("param", args.getString('x'));
-		assertEquals(2, args.nextArgument());
+        var args = new com.cleancoder.args.Args("x*", new string[]{"-x", "param"});
+		Assert.True(args.has('x'));
+		Assert.Equal("param", args.getString('x'));
+		Assert.Equal(2, args.nextArgument());
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -126,13 +129,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x*", new string[]{"-x"});
-		  fail();
+		  new com.cleancoder.args.Args("x*", new string[]{"-x"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(MISSING_STRING, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.MISSING_STRING, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 	  }
 
@@ -141,10 +144,10 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testSpacesInFormat()
 	  {
-		Args args = new Args("x, y", new string[]{"-xy"});
-		assertTrue(args.has('x'));
-		assertTrue(args.has('y'));
-		assertEquals(1, args.nextArgument());
+            com.cleancoder.args.Args args = new com.cleancoder.args.Args("x, y", new string[]{"-xy"});
+		Assert.True(args.has('x'));
+		Assert.True(args.has('y'));
+		Assert.Equal(1, args.nextArgument());
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -152,10 +155,10 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testSimpleIntPresent()
 	  {
-		Args args = new Args("x#", new string[]{"-x", "42"});
-		assertTrue(args.has('x'));
-		assertEquals(42, args.getInt('x'));
-		assertEquals(2, args.nextArgument());
+            com.cleancoder.args.Args args = new com.cleancoder.args.Args("x#", new string[]{"-x", "42"});
+		Assert.True(args.has('x'));
+		Assert.Equal(42, args.getInt('x'));
+		Assert.Equal(2, args.nextArgument());
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -165,14 +168,14 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x#", new string[]{"-x", "Forty two"});
-		  fail();
+		  new com.cleancoder.args.Args("x#", new string[]{"-x", "Forty two"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(INVALID_INTEGER, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
-		  assertEquals("Forty two", e.ErrorParameter);
+		  Assert.Equal(ErrorCode.INVALID_INTEGER, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
+		  Assert.Equal("Forty two", e.ErrorParameter);
 		}
 
 	  }
@@ -184,13 +187,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x#", new string[]{"-x"});
-		  fail();
+		  new com.cleancoder.args.Args("x#", new string[]{"-x"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(MISSING_INTEGER, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.MISSING_INTEGER, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 	  }
 
@@ -199,9 +202,9 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testSimpleDoublePresent()
 	  {
-		Args args = new Args("x##", new string[]{"-x", "42.3"});
-		assertTrue(args.has('x'));
-		assertEquals(42.3, args.getDouble('x'), .001);
+            var args = new com.cleancoder.args.Args("x##", new string[]{"-x", "42.3"});
+		Assert.True(args.has('x'));
+		Assert.Equal(42.3, args.getDouble('x'),3);
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -211,14 +214,14 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x##", new string[]{"-x", "Forty two"});
-		  fail();
+		  var args = new com.cleancoder.args.Args("x##", new string[]{"-x", "Forty two"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(INVALID_DOUBLE, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
-		  assertEquals("Forty two", e.ErrorParameter);
+		  Assert.Equal(ErrorCode.INVALID_DOUBLE, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
+		  Assert.Equal("Forty two", e.ErrorParameter);
 		}
 	  }
 
@@ -229,13 +232,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x##", new string[]{"-x"});
-		  fail();
+		  new com.cleancoder.args.Args("x##", new string[]{"-x"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(MISSING_DOUBLE, e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.MISSING_DOUBLE, e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 	  }
 
@@ -244,11 +247,11 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testStringArray()
 	  {
-		Args args = new Args("x[*]", new string[]{"-x", "alpha"});
-		assertTrue(args.has('x'));
+            com.cleancoder.args.Args args = new com.cleancoder.args.Args("x[*]", new string[]{"-x", "alpha"});
+		Assert.True(args.has('x'));
 		string[] result = args.getStringArray('x');
-		assertEquals(1, result.Length);
-		assertEquals("alpha", result[0]);
+		Assert.Equal(1, result.Length);
+		Assert.Equal("alpha", result[0]);
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -258,13 +261,13 @@ namespace Args
 	  {
 		try
 		{
-		  new Args("x[*]", new string[] {"-x"});
-		  fail();
+		  new com.cleancoder.args.Args("x[*]", new string[] {"-x"});
+		  //fail();
 		}
 		catch (ArgsException e)
 		{
-		  assertEquals(MISSING_STRING,e.ErrorCode);
-		  assertEquals('x', e.ErrorArgumentId);
+		  Assert.Equal(ErrorCode.MISSING_STRING,e.getErrorCode());
+		  Assert.Equal('x', e.ErrorArgumentId);
 		}
 	  }
 
@@ -273,13 +276,13 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void manyStringArrayElements()
 	  {
-		Args args = new Args("x[*]", new string[]{"-x", "alpha", "-x", "beta", "-x", "gamma"});
-		assertTrue(args.has('x'));
+            com.cleancoder.args.Args args = new com.cleancoder.args.Args("x[*]", new string[]{"-x", "alpha", "-x", "beta", "-x", "gamma"});
+		Assert.True(args.has('x'));
 		string[] result = args.getStringArray('x');
-		assertEquals(3, result.Length);
-		assertEquals("alpha", result[0]);
-		assertEquals("beta", result[1]);
-		assertEquals("gamma", result[2]);
+		Assert.Equal(3, result.Length);
+		Assert.Equal("alpha", result[0]);
+		Assert.Equal("beta", result[1]);
+		Assert.Equal("gamma", result[2]);
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -287,11 +290,11 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void MapArgument()
 	  {
-		Args args = new Args("f&", new string[] {"-f", "key1:val1,key2:val2"});
-		assertTrue(args.has('f'));
+		var args = new com.cleancoder.args.Args("f&", new string[] {"-f", "key1:val1,key2:val2"});
+		Assert.True(args.has('f'));
 		IDictionary<string, string> map = args.getMap('f');
-		assertEquals("val1", map["key1"]);
-		assertEquals("val2", map["key2"]);
+		Assert.Equal("val1", map["key1"]);
+		Assert.Equal("val2", map["key2"]);
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -299,7 +302,7 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void malFormedMapArgument()
 	  {
-		Args args = new Args("f&", new string[] {"-f", "key1:val1,key2"});
+		var args = new com.cleancoder.args.Args("f&", new string[] {"-f", "key1:val1,key2"});
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -307,10 +310,10 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void oneMapArgument()
 	  {
-		Args args = new Args("f&", new string[] {"-f", "key1:val1"});
-		assertTrue(args.has('f'));
+		var args = new com.cleancoder.args.Args("f&", new string[] {"-f", "key1:val1"});
+		Assert.True(args.has('f'));
 		IDictionary<string, string> map = args.getMap('f');
-		assertEquals("val1", map["key1"]);
+		Assert.Equal("val1", map["key1"]);
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -318,10 +321,10 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testExtraArguments()
 	  {
-		Args args = new Args("x,y*", new string[]{"-x", "-y", "alpha", "beta"});
-		assertTrue(args.getBoolean('x'));
-		assertEquals("alpha", args.getString('y'));
-		assertEquals(3, args.nextArgument());
+		var args = new com.cleancoder.args.Args("x,y*", new string[]{"-x", "-y", "alpha", "beta"});
+		Assert.True(args.getBoolean('x'));
+		Assert.Equal("alpha", args.getString('y'));
+		Assert.Equal(3, args.nextArgument());
 	  }
 
 //JAVA TO C# CONVERTER TODO TASK: Most Java annotations will not have direct .NET equivalent attributes:
@@ -329,12 +332,12 @@ namespace Args
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 	  public virtual void testExtraArgumentsThatLookLikeFlags()
 	  {
-		Args args = new Args("x,y", new string[]{"-x", "alpha", "-y", "beta"});
-		assertTrue(args.has('x'));
-		assertFalse(args.has('y'));
-		assertTrue(args.getBoolean('x'));
-		assertFalse(args.getBoolean('y'));
-		assertEquals(1, args.nextArgument());
+		var args = new com.cleancoder.args.Args("x,y", new string[]{"-x", "alpha", "-y", "beta"});
+		Assert.True(args.has('x'));
+		Assert.False(args.has('y'));
+		Assert.True(args.getBoolean('x'));
+		Assert.False(args.getBoolean('y'));
+		Assert.Equal(1, args.nextArgument());
 	  }
 	}
 

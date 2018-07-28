@@ -6,13 +6,14 @@
 
 using System;
 using System.Collections.Generic;
-using static Args.ArgsException;
 
-namespace Args
+namespace com.cleancoder.args
 {
-	public class Args
+    using static com.cleancoder.args.ArgsException.ErrorCode;
+
+    public class Args
 	{
-	  private IDictionary<char, ArgumentMarshaler> marshalers;
+	  private IDictionary<char, IArgumentMarshaler> marshalers;
 	  private ISet<char> argsFound;
 	  private IEnumerator<string> currentArgument;
 
@@ -20,7 +21,7 @@ namespace Args
 //ORIGINAL LINE: public Args(String schema, String[] args) throws ArgsException
 	  public Args(string schema, string[] args)
 	  {
-		marshalers = new Dictionary<char, ArgumentMarshaler>();
+		marshalers = new Dictionary<char, IArgumentMarshaler>();
 		argsFound = new HashSet<char>();
 
 		parseSchema(schema);
@@ -73,7 +74,7 @@ namespace Args
 		}
 		else
 		{
-		  throw new ArgsException(ErrorCode.INVALID_ARGUMENT_FORMAT, elementId, elementTail);
+		  throw new ArgsException(INVALID_ARGUMENT_FORMAT, elementId, elementTail);
 		}
 	  }
 
@@ -83,7 +84,7 @@ namespace Args
 	  {
 		if (!char.IsLetter(elementId))
 		{
-		  throw new ArgsException(ErrorCode.INVALID_ARGUMENT_NAME, elementId, null);
+		  throw new ArgsException(INVALID_ARGUMENT_NAME, elementId, null);
 		}
 	  }
 
@@ -91,28 +92,22 @@ namespace Args
 //ORIGINAL LINE: private void parseArgumentStrings(List<String> argsList) throws ArgsException
 	  private void parseArgumentStrings(IList<string> argsList)
 	  {
-            foreach (var argString in argsList)
+
+            //JAVA TO C# CONVERTER WARNING: Unlike Java's ListIterator, enumerators in .NET do not allow altering the collection:
+            for (currentArgument = argsList.GetEnumerator(); currentArgument.MoveNext();)
             {
+                string argString = currentArgument.Current;
                 if (argString.StartsWith("-", StringComparison.Ordinal))
                 {
                     parseArgumentCharacters(argString.Substring(1));
                 }
+                else
+                {
+                    //currentArgument.previous();
+                    break;
+                }
             }
-//JAVA TO C# CONVERTER WARNING: Unlike Java's ListIterator, enumerators in .NET do not allow altering the collection:
-		//for (currentArgument = argsList.GetEnumerator(); currentArgument.MoveNext();)
-		//{
-		//  string argString = currentArgument.Current;
-		//  if (argString.StartsWith("-", StringComparison.Ordinal))
-		//  {
-		//	parseArgumentCharacters(argString.Substring(1));
-		//  }
-		//  else
-		//  {
-		//	currentArgument.previous();
-		//	break;
-		//  }
-		//}
-	  }
+        }
 
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: private void parseArgumentCharacters(String argChars) throws ArgsException
@@ -128,10 +123,10 @@ namespace Args
 //ORIGINAL LINE: private void parseArgumentCharacter(char argChar) throws ArgsException
 	  private void parseArgumentCharacter(char argChar)
 	  {
-		ArgumentMarshaler m = marshalers[argChar];
+		IArgumentMarshaler m = marshalers[argChar];
 		if (m == null)
 		{
-		  throw new ArgsException(ErrorCode.UNEXPECTED_ARGUMENT, argChar, null);
+		  throw new ArgsException(UNEXPECTED_ARGUMENT, argChar, null);
 		}
 		else
 		{
@@ -153,9 +148,10 @@ namespace Args
 		return argsFound.Contains(arg);
 	  }
 
-	  public virtual string nextArgument()
+	  public virtual int nextArgument()
 	  {
-		return currentArgument.Current;
+            //return currentArgument.nextIndex();
+         return 0;  //TODO fix this!!
 	  }
 
 	  public virtual bool getBoolean(char arg)

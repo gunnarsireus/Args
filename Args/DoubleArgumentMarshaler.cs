@@ -5,13 +5,13 @@
 //========================================================================
 
 using System.Collections.Generic;
-using static Args.ArgsException;
 
-namespace Args
+namespace com.cleancoder.args
 {
-	using static ErrorCode;
+    using global::Args;
+    using static com.cleancoder.args.ArgsException.ErrorCode;
 
-	public class DoubleArgumentMarshaler : ArgumentMarshaler
+	public class DoubleArgumentMarshaler : IArgumentMarshaler
 	{
 	  private double doubleValue = 0;
 
@@ -36,7 +36,7 @@ namespace Args
 		}
 	  }
 
-	  public static double getValue(ArgumentMarshaler am)
+	  public static double getValue(IArgumentMarshaler am)
 	  {
 		if (am != null && am is DoubleArgumentMarshaler)
 		{

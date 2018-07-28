@@ -6,10 +6,10 @@
 
 using System.Collections.Generic;
 
-namespace Args
+namespace com.cleancoder.args
 {
 
-	public interface ArgumentMarshaler
+	public interface IArgumentMarshaler
 	{
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: void set(java.util.Iterator<String> currentArgument) throws ArgsException;

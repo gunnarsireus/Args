@@ -4,16 +4,17 @@
 // Purchase the Premium Edition at https://www.tangiblesoftwaresolutions.com
 //========================================================================
 
+using Args;
 using System.Collections.Generic;
-using static Args.ArgsException;
+using static com.cleancoder.args.ArgsException;
 
-namespace Args
+namespace com.cleancoder.args
 {
 
 //JAVA TO C# CONVERTER TODO TASK: This Java 'import static' statement cannot be converted to C#:
-//	import static ErrorCode.MISSING_STRING;
+//	import static com.cleancoder.args.ArgsException.ErrorCode.MISSING_STRING;
 
-	public class StringArgumentMarshaler : ArgumentMarshaler
+	public class StringArgumentMarshaler : IArgumentMarshaler
 	{
 	  private string stringValue = "";
 
@@ -32,7 +33,7 @@ namespace Args
 		}
 	  }
 
-	  public static string getValue(ArgumentMarshaler am)
+	  public static string getValue(IArgumentMarshaler am)
 	  {
 		if (am != null && am is StringArgumentMarshaler)
 		{

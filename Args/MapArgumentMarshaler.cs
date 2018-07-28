@@ -5,14 +5,13 @@
 //========================================================================
 
 using System.Collections.Generic;
-using static Args.ArgsException;
 
-namespace Args
+namespace com.cleancoder.args
 {
+    using global::Args;
+    using static com.cleancoder.args.ArgsException.ErrorCode;
 
-	using static ErrorCode;
-
-	public class MapArgumentMarshaler : ArgumentMarshaler
+	public class MapArgumentMarshaler : IArgumentMarshaler
 	{
 	  private IDictionary<string, string> map = new Dictionary<string, string>();
 
@@ -40,7 +39,7 @@ namespace Args
 		}
 	  }
 
-	  public static IDictionary<string, string> getValue(ArgumentMarshaler am)
+	  public static IDictionary<string, string> getValue(IArgumentMarshaler am)
 	  {
 		if (am != null && am is MapArgumentMarshaler)
 		{

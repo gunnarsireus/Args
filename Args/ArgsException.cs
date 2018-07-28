@@ -4,15 +4,16 @@
 // Purchase the Premium Edition at https://www.tangiblesoftwaresolutions.com
 //========================================================================
 
-namespace Args
+namespace com.cleancoder.args
 {
     using System;
+    using static com.cleancoder.args.ArgsException.ErrorCode;
 
 	public class ArgsException : Exception
 	{
 	  private char errorArgumentId = '\0';
 	  private string errorParameter = null;
-        private ErrorCode errorCode = ErrorCode.OK;
+	  private ErrorCode errorCode = OK;
 
 	  public ArgsException()
 	  {
@@ -80,27 +81,27 @@ namespace Args
 	  {
 		switch (errorCode)
 		{
-		  case ErrorCode.OK:
+		  case com.cleancoder.args.ArgsException.ErrorCode.OK:
 			return "TILT: Should not get here.";
-		  case ErrorCode.UNEXPECTED_ARGUMENT:
+		  case com.cleancoder.args.ArgsException.ErrorCode.UNEXPECTED_ARGUMENT:
 			return string.Format("Argument -{0} unexpected.", errorArgumentId);
-		  case ErrorCode.MISSING_STRING:
+		  case com.cleancoder.args.ArgsException.ErrorCode.MISSING_STRING:
 			return string.Format("Could not find string parameter for -{0}.", errorArgumentId);
-		  case ErrorCode.INVALID_INTEGER:
+		  case com.cleancoder.args.ArgsException.ErrorCode.INVALID_INTEGER:
 			return string.Format("Argument -{0} expects an integer but was '{1}'.", errorArgumentId, errorParameter);
-		  case ErrorCode.MISSING_INTEGER:
+		  case com.cleancoder.args.ArgsException.ErrorCode.MISSING_INTEGER:
 			return string.Format("Could not find integer parameter for -{0}.", errorArgumentId);
-		  case ErrorCode.INVALID_DOUBLE:
+		  case com.cleancoder.args.ArgsException.ErrorCode.INVALID_DOUBLE:
 			return string.Format("Argument -{0} expects a double but was '{1}'.", errorArgumentId, errorParameter);
-		  case ErrorCode.MISSING_DOUBLE:
+		  case com.cleancoder.args.ArgsException.ErrorCode.MISSING_DOUBLE:
 			return string.Format("Could not find double parameter for -{0}.", errorArgumentId);
-		  case ErrorCode.INVALID_ARGUMENT_NAME:
+		  case com.cleancoder.args.ArgsException.ErrorCode.INVALID_ARGUMENT_NAME:
 			return string.Format("'{0}' is not a valid argument name.", errorArgumentId);
-		  case ErrorCode.INVALID_ARGUMENT_FORMAT:
+		  case com.cleancoder.args.ArgsException.ErrorCode.INVALID_ARGUMENT_FORMAT:
 			return string.Format("'{0}' is not a valid argument format.", errorParameter);
-		  case ErrorCode.MISSING_MAP:
+		  case com.cleancoder.args.ArgsException.ErrorCode.MISSING_MAP:
 			return string.Format("Could not find map string for -{0}.", errorArgumentId);
-		  case ErrorCode.MALFORMED_MAP:
+		  case com.cleancoder.args.ArgsException.ErrorCode.MALFORMED_MAP:
 			return string.Format("Map string for -{0} is not of form k1:v1,k2:v2...", errorArgumentId);
 		}
 		return "";
