@@ -84,7 +84,7 @@ namespace com.cleancoder.args
         {
             if (_cursor == null)
             {
-                throw new System.NotImplementedException();
+                throw new NoSuchElementException();
             }
             if (_cursor > _list.Count - 1)
             {
@@ -103,7 +103,7 @@ namespace com.cleancoder.args
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NoSuchElementException();
             }
         }
 
@@ -115,7 +115,7 @@ namespace com.cleancoder.args
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NoSuchElementException();
             }
         }
 
@@ -127,7 +127,7 @@ namespace com.cleancoder.args
             }
             else
             {
-                throw new System.NotImplementedException();
+                throw new NoSuchElementException();
             }
         }
     }
