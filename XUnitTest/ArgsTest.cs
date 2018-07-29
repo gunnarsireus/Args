@@ -3,7 +3,6 @@
 // Java to C# Converter courtesy of Tangible Software Solutions.
 // Purchase the Premium Edition at https://www.tangiblesoftwaresolutions.com
 //========================================================================
-using System;
 using Xunit;
 using System.Collections.Generic;
 using com.cleancoder.args;

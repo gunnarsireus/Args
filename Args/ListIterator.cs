@@ -43,7 +43,7 @@ namespace com.cleancoder.args
         {
             if (_list.Count > 0)
             {
-                return (_previous !=null);
+                return (_previous != null);
             }
 
             return false;
