@@ -8,7 +8,6 @@ using System.Collections.Generic;
 
 namespace com.cleancoder.args
 {
-    using global::Args;
     using static com.cleancoder.args.ArgsException.ErrorCode;
 
 	public class MapArgumentMarshaler : IArgumentMarshaler
@@ -17,12 +16,12 @@ namespace com.cleancoder.args
 
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: public void set(java.util.Iterator<String> currentArgument) throws ArgsException
-	  public virtual void set(IEnumerator<string> currentArgument)
+	  public virtual void set(IListIterator<string> currentArgument)
 	  {
 		try
 		{
 //JAVA TO C# CONVERTER TODO TASK: Java iterators are only converted within the context of 'while' and 'for' loops:
-		  string[] mapEntries = currentArgument.Current.Split(",");
+		  string[] mapEntries = currentArgument.Next().Split(",");
 		  foreach (string entry in mapEntries)
 		  {
 			string[] entryComponents = entry.Split(":", true);

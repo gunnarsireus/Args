@@ -15,7 +15,7 @@ namespace com.cleancoder.args
 
 //JAVA TO C# CONVERTER WARNING: Method 'throws' clauses are not available in .NET:
 //ORIGINAL LINE: public void set(java.util.Iterator<String> currentArgument) throws ArgsException
-	  public virtual void set(IEnumerator<string> currentArgument)
+	  public virtual void set(IListIterator<string> currentArgument)
 	  {
 		booleanValue = true;
 	  }

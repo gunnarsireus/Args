@@ -7,7 +7,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Args
+namespace com.cleancoder.args
 {
     [Serializable]
     internal class NoSuchElementException : Exception
