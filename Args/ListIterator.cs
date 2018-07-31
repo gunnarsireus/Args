@@ -4,25 +4,10 @@ namespace com.cleancoder.args
 {
     public class ListIterator<T> : IListIterator<T>
     {
-        private IList<T> _list = new List<T>();
 
-        public IList<T> List
-        {
-            get { return _list; }
-            set
-            {
-                _list = value;
-                if (_list.Count > 0)
-                {
-                    _next = 0;
-                }
-            }
-        }
+        public IList<T> List = new List<T>();
 
-        int? _cursor;
-        int? _next;
-        int? _previous;
-
+        int? position;
 
         public void Add(T t)
         {
@@ -31,9 +16,10 @@ namespace com.cleancoder.args
 
         public bool HasNext()
         {
-            if (_list.Count > 0)
+            if (List.Count > 0)
             {
-                return (_next < _list.Count);
+                if (position == null) return true;
+                if (position < List.Count - 1) return true;
             }
 
             return false;
@@ -41,9 +27,10 @@ namespace com.cleancoder.args
 
         public bool HasPrevious()
         {
-            if (_list.Count > 0)
+            if (List.Count > 0)
             {
-                return (_previous != null);
+                if (position == null) return true;
+                if (position > 0) return true;
             }
 
             return false;
@@ -51,28 +38,24 @@ namespace com.cleancoder.args
 
         public T Next()
         {
-            if (_cursor == null)
+            if (position == null)
             {
-                _cursor = 0;
-                _next = 1;
+                position = 0;
                 return List[0];
             }
-
-            _previous = _cursor;
-            _cursor++;
-            _next = _cursor + 1;
-            if (_cursor > _list.Count - 1)
+            position++;
+            if (position > List.Count - 1)
             {
                 throw new NoSuchElementException();
             }
-            return List[(int)_cursor];
+            return List[(int)position];
         }
 
         public int NextIndex()
         {
-            if (_next != null)
+            if (position != null)
             {
-                return (int)_next;
+                return (int)position + 1;
             }
             else
             {
@@ -82,36 +65,30 @@ namespace com.cleancoder.args
 
         public T Previous()
         {
-            if (_cursor == null)
+            if (position == null || position == 0)
             {
                 throw new NoSuchElementException();
             }
-            if (_cursor > _list.Count - 1)
-            {
-                throw new NoSuchElementException();
-            }
-            _next--;
-            _previous--;
-            return List[(int)_cursor];
+
+            position--;
+            return List[(int)position];
+
         }
 
         public int PreviousIndex()
         {
-            if (_previous != null && _previous > -1)
+            if (position != null && position > 0)
             {
-                return (int)_previous;
+                return (int)position - 1;
             }
-            else
-            {
-                throw new NoSuchElementException();
-            }
+            throw new NoSuchElementException();
         }
 
         public void Remove()
         {
-            if (_cursor != null)
+            if (position != null && position < List.Count)
             {
-                List.Remove(List[(int)_cursor]);
+                List.Remove(List[(int)position]);
             }
             else
             {
@@ -121,9 +98,9 @@ namespace com.cleancoder.args
 
         public void Set(T t)
         {
-            if (_cursor != null)
+            if (position != null && position < List.Count)
             {
-                List[(int)_cursor] = t;
+                List[(int)position] = t;
             }
             else
             {
