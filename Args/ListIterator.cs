@@ -55,25 +55,25 @@ namespace com.cleancoder.args
 
         public void Remove()
         {
-            if (position < List.Count)
+            if (position < 0 || position > List.Count - 1)
             {
-                List.Remove(List[position]);
+                throw new NoSuchElementException();
             }
             else
             {
-                throw new NoSuchElementException();
+                List.Remove(List[position]);
             }
         }
 
         public void Set(T t)
         {
-            if (position < List.Count)
+            if (position < 0 || position > List.Count - 1)
             {
-                List[position] = t;
+                throw new NoSuchElementException();
             }
             else
             {
-                throw new NoSuchElementException();
+                List[position] = t;
             }
         }
     }
