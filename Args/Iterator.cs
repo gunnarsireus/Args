@@ -6,21 +6,20 @@ namespace com.cleancoder.args
     {
         public IList<T> List = new List<T>();
 
-        protected int position = -1;
+        protected int position = 0;
 
         public bool HasNext()
         {
-            return (position < List.Count - 1);
+            return (position < List.Count);
         }
 
         public T Next()
         {
-            position++;
             if (position > List.Count - 1)
             {
                 throw new NoSuchElementException();
             }
-            return List[position];
+            return List[position++];
         }
 
         public void Remove()

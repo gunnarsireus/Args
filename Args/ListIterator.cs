@@ -14,17 +14,16 @@
 
         public int NextIndex()
         {
-            return position + 1;
+            return position ;
         }
 
         public T Previous()
         {
-            position--;
-            if (position < 0)
+            if (position < 1)
             {
                 throw new NoSuchElementException();
             }
-            return List[position];
+            return List[--position];
         }
 
         public int PreviousIndex()
